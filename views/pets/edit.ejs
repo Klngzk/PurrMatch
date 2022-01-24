@@ -1,0 +1,48 @@
+<% layout('/layouts/boilerplate')  %> 
+
+
+<div class="container">
+    <div class="row">
+        <h1 class="text-center ">Edit</h1>
+        <div class="col-md-6 offset-md-3">
+            <form action="/pets/<%= pet._id %>?_method=PUT" method="POST" novalidate class="needsValidation" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label" for="name">Name</label>
+                    <input id='name' class="form-control" type="text" name="pet[name]" value="<%=pet.name%> "  required>
+                </div>
+        
+                <div class="mb-3">
+                    <label class="form-label" for="location">Location</label>
+                    <input id='location' class="form-control" type="text" name="pet[location]" value="<%=pet.location%> " required >
+                </div>
+
+                <div class="mb-3 ">
+                    <label class="form-label" for="description">Description</label>
+                   <textarea id='description' class="form-control" type="text" name="pet[description]" required> <%=pet.description%> </textarea> 
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="formFileMultiple" class="form-label">Choose image(s)...</label>
+                    <input class="form-control" type="file" id="formFileMultiple" name="image" multiple>
+                  </div>
+                  <div class="mb-3">
+                      <% pet.images.forEach((img,i) => {%> 
+                        <img src="<%=img.thumbnail%>" class="img-thumbnail" alt="...">
+                        <div class="form-check-inline">
+                            <input type="checkbox"  id="image-<%=i%>" name="deleteImages[]" value="<%=img.filename%>">
+                        </div>
+                        <label for="image-<%=i%>">Delete?</label>
+                        <% }) %> 
+                  </div>
+            
+                <div class="mb-3">
+                    <button class="btn btn-lg btn-success btn-block my-3">Update</button>
+                </div>
+            
+                <a href="/pets">Go back</a>
+            </form>
+        </div>    
+    </div>
+</div>
+

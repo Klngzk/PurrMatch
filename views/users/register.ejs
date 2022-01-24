@@ -1,0 +1,59 @@
+<% layout('/layouts/boilerplate')  %> 
+
+
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+            <div class="card shadow">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1560114928-40f1f1eb26a0" >               
+            
+                <div class="card-body">
+                    <h5 class="card-title">Register</h5>
+                    <form action="/register" method="POST" class="needsValidation" novalidate>
+                        <div class="mb-3">
+                            <label class="form-label" for="username">Username</label>
+                            <input id='username' class="form-control" type="text" name="username" autofocus required >
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="email">Email</label>
+                            <input id='email' class="form-control" type="email" name="email"required >
+                        </div>
+                    
+                        <div class="mb-3">
+                            <label class="form-label" for="password">Password</label>
+                            <input id='password' class="form-control" type="password" name="password" required >
+                        </div>
+                        <button class="btn btn-success">Register</button>
+                    
+                    </form>
+
+                </div>
+
+            </div>
+        </div>    
+    </div>    
+
+</div>
+
+
+
+<!-- <h1>Register</h1>
+<form action="/register" method="POST" class="needsValidation" novalidate>
+    <div class="mb-3">
+        <label class="form-label" for="username">Username</label>
+        <input id='username' class="form-control" type="text" name="username" required >
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="email">Email</label>
+        <input id='email' class="form-control" type="email" name="email"required >
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="password">Password</label>
+        <input id='password' class="form-control" type="password" name="password" required >
+    </div>
+    <button class="btn btn-success">Register</button>
+
+
+</form> -->

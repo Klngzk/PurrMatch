@@ -1,0 +1,53 @@
+<% layout('/layouts/boilerplate')  %> 
+
+
+<div class="container">
+    <div class="row">
+        <h1 class="text-center">Add new Pet</h1>
+        <div class="col-md-6 offset-md-3">
+            <form action="/pets" method="POST" novalidate class="needsValidation" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label" for="name">Name</label>
+                    <input id='name' class="form-control" type="text" name="pet[name]" required >
+                </div>
+        
+                <div class="mb-3">
+                    <label class="form-label" for="location">Location</label>
+                    <input id='location' class="form-control" type="text" name="pet[location]"required placeholder="Street,City...">
+                </div>
+
+                <!-- <div class="mb-3 ">
+                    <label class="form-label" for="image">Image</label>
+                    <input id='image' class="form-control" type="text" name="pet[image]"required >
+                </div> -->
+            
+
+                <!-- <input type="file" name='image' multiple> -->
+
+                <div class="mb-3 ">
+                    <label class="form-label" for="description">Description</label>
+                   <textarea id='description' class="form-control" type="text" name="pet[description]" required></textarea> 
+                </div>
+
+                <div class="mb-3">
+                    <label for="formFileMultiple" class="form-label">Choose image(s)...</label>
+                    <input class="form-control" type="file" id="formFileMultiple" name="image" multiple>
+                  </div>
+            
+                <div class="mb-3">
+                    <button class="btn btn-lg btn-success btn-block my-3">Submit</button>
+                </div>
+            
+                <a href="/pets">Go back</a>
+            </form>
+        </div>    
+    </div>
+</div>
+
+
+
+
+
+
+
+

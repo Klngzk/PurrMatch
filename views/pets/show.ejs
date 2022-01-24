@@ -1,0 +1,110 @@
+<% layout('/layouts/boilerplate')  %> 
+<link rel="stylesheet" href="/css/stars.css">
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-6 ">
+          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+          <% pet.images.forEach((img,i) => { %> 
+              <div class="carousel-item <%= i == 0 ? 'active' : '' %> ">
+                <img src="<%=img.url%>" class="d-block w-100 img-show" alt="...">
+              </div>
+          <% }) %>     
+            </div>
+            <% if(pet.images.length > 1) {%> 
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+            <% } %> 
+          </div>
+
+        <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title"><%=pet.name%></h5>
+              <p class="card-text"><%=pet.description%></p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-muted"><%=pet.location%></li>
+              <!-- <li class="list-group-item">A second item</li>
+              <li class="list-group-item">A third item</li> -->
+            </ul>
+            <% if(currentUser && pet.author.equals(currentUser._id)){ %> 
+              <div class="card-body">
+                <a href="/pets/<%=pet._id%>/edit" class="card-link btn btn-info btn-sm" id="edit">Edit</a>
+                <form class="d-inline" action="/pets/<%=pet._id%>?_method=DELETE" method="POST">
+                  <button class="btn btn-danger btn-sm">Delete</button>
+                </form>
+              </div>
+            <% } %>   
+          </div>
+        </div>
+
+
+        <div class="col-lg-6">
+          <div id='s-map' ></div>
+
+            <h2>Leave a Comment</h2>
+            <% if(currentUser){ %> 
+            <form action="/pets/<%=pet._id%>/comments" method="POST" class="mb-3 needsValidation" novalidate >
+              
+                <fieldset class="starability-heartbeat">
+                  <legend></legend>
+                  <input type="radio" id="no-rate" class="input-no-rate" name="comment[rating]" value="1" checked aria-label="No rating." />
+                  <input type="radio" id="first-rate1" name="comment[rating]" value="1" />
+                  <label for="first-rate1" title="Terrible">1 star</label>
+                  <input type="radio" id="first-rate2" name="comment[rating]" value="2" />
+                  <label for="first-rate2" title="Not good">2 stars</label>
+                  <input type="radio" id="first-rate3" name="comment[rating]" value="3" />
+                  <label for="first-rate3" title="Average">3 stars</label>
+                  <input type="radio" id="first-rate4" name="comment[rating]" value="4" />
+                  <label for="first-rate4" title="Very good">4 stars</label>
+                  <input type="radio" id="first-rate5" name="comment[rating]" value="5" />
+                  <label for="first-rate5" title="Amazing">5 stars</label>
+                </fieldset>
+
+                <div class="mb-3">
+                    <!-- <label class="form-label" for="body"> Comments</label> -->
+                    <textarea class="form-control" name="comment[body]" id="body" cols="10" rows="3" required></textarea>
+                </div>
+                <button class="btn btn-success">Submit</button>
+            </form>
+            <% } else { %> 
+              <p class="text-muted">Make sure you're Signed In</p>
+              <% } %> 
+            <% for(let comment of pet.comments){ %>
+              <div class="card mb-3">
+                  <div class="card-body">
+                    <h5 class="card-title"><%=comment.author.username%></h5>
+
+                    <p class="starability-result" data-rating="<%=comment.rating%>">
+                      Rated: <%=comment.rating%> stars
+                    </p>
+                  
+                    <!-- <h6 class="card-subtitle mb-2 text-muted">By  </h6> -->
+                    <p class="card-text"><%=comment.body%></p>
+
+                    <% if(currentUser && comment.author.equals(currentUser._id)){ %> 
+                    <form action="/pets/<%=pet._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                    <% } %> 
+                  </div>
+              </div> 
+              <%}%>
+        </div>
+    </div>
+</div>
+
+<script>
+  const mapToken = '<%-process.env.MAPBOX_TOKEN%>'
+  const pet = <%- JSON.stringify(pet)%>
+</script>
+
+<script src="/js/showMap.js"></script>
